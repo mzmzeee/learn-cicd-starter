@@ -6,7 +6,10 @@ import (
 	"strings"
 )
 
-var ErrNoAuthHeaderIncluded = errors.New("no authorization header included")
+var (
+	ErrNoAuthHeaderIncluded = errors.New("no authorization header included")
+	ErrMalformedAuthHeader  = errors.New("malformed authorization header")
+)
 
 // GetAPIKey -
 func GetAPIKey(headers http.Header) (string, error) {
