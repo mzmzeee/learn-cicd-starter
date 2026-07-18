@@ -30,9 +30,14 @@ jobs:
       - name: Build and push Docker image
         run: |-
           gcloud builds submit \
-            --tag us-central1-docker.pkg.dev/notely-502718/notely-ar-repo/notely:latest \
             --tag us-central1-docker.pkg.dev/notely-502718/notely-ar-repo/notely:${{ github.sha }} \
             .
+
+      - name: Tag image as latest
+        run: |-
+          gcloud container images add-tag \
+            us-central1-docker.pkg.dev/notely-502718/notely-ar-repo/notely:${{ github.sha }} \
+            us-central1-docker.pkg.dev/notely-502718/notely-ar-repo/notely:latest
 
       - name: Deploy to Cloud Run
         run: |-
